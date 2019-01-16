@@ -16,6 +16,10 @@ export default new Router({
     cartRoute,
     catagoryRoute,
     mineRoute,
-    topicRoute
+    topicRoute,
+    {
+      path:'/',
+      redirect:'/home'
+    }
   ]
 })

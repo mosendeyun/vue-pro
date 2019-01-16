@@ -1,8 +1,9 @@
 <template>
+<div>
     <nav class="nav_item">
         <scroller ref="scroller" :height='30' :scrollX="true" :scrollY="true">
             <ul class="list">
-                <li ref="item" class="item" :class="{active:selectIndex===index}" v-for="(item,index) in list" :key="item.id"
+                <li ref="item" class="item" :class="{active:value===index}" v-for="(item,index) in list" :key="item.id"
                     @click="activeAction(index)">
                     {{item.name}}
                 </li>
@@ -10,28 +11,33 @@
         </scroller>
         <div class="scoll" @click="showAction">
             <span class="fade"></span>
-            <span><van-icon name="arrow-down" /></span>
+            <span ><van-icon name="arrow-down" :class="{flip:showMenu===true}"/></span>
         </div>
         <div class="menu_bar" v-show="showMenu">
             <h3>全部频道</h3>
             <ul class="menu">
                 <li v-for="(item,index) in list" :key="item.id" @click="activeAction(index)"
-                :class="{active:selectIndex===index}">
+                :class="{active:value===index}">
                     {{item.name}}
                 </li>
             </ul>
         </div>
-        <div class="cover" v-show="showMenu" @click="showAction"></div>
     </nav>
+    <div class="cover" v-show="showMenu" @click="showAction"></div>
+
+</div>
 </template>
 
 <script>
 import {getHomeCateList} from '../../services/homeService.js'
 export default {
+    props:{
+        value:Number,
+    },
     data(){
         return{
-            list:[],
-            selectIndex:0,
+            list:[{id:100,name:'推荐'}],
+            // selectIndex:0,
             showMenu:false
         }
     },
@@ -40,14 +46,16 @@ export default {
             this.showMenu=!this.showMenu;
         },
         activeAction(index){
-            console.log(1)
-            this.selectIndex=index;
-            this.showMenu=false
+            // this.selectIndex=index;
+            this.showMenu=false;
+            //告诉首页组件index下标;
+            this.$emit('input',index)
         },
     },
     created(){
         getHomeCateList().then(data=>{
-            this.list=data
+            this.list.push(...data)
+            // this.list=data
              this.$nextTick(()=>{
                  let width=0;
                  this.$refs.item.map(item=>{
@@ -77,15 +85,16 @@ export default {
 
 <style lang="scss" scoped>
  .nav_item{
-     width:100%;height:30px;border-bottom: 1px solid #ccc;
-     position:absolute;top:44px;left:0;background:#eee;
+     width:100%;height:30px;
+    //  border-bottom: 1px solid #ccc;
+     position:absolute;top:44px;left:0;
      .list{
         overflow: hidden;white-space: nowrap;z-index: 10;
          .item{
              display: inline-block;
             padding: 0 10px;
             font-size: 12px;
-            line-height: 26px;
+            line-height: 29px;
             color: #333;
             &.active{
                 color: #b4282d;
@@ -106,9 +115,13 @@ export default {
         }
         span:nth-of-type(2){
             width: 40px;
-            line-height: 26px;
+            line-height: 30px;
             text-align: center;
             background: #fff;
+        }
+        .flip{
+            transition:  .5s;
+            transform: rotate(180deg);
         }
      }
     .menu_bar{
@@ -122,18 +135,21 @@ export default {
                 float: left;margin:5px;width:76px;height:30px;border:1px solid #ccc;
                 border-radius: 5px;text-align: center;line-height: 30px;
                 font-size: 12px;
+                &.active{
+                color: #b4282d;
+                border: 1px solid #b4282d;
                 }
+            }
         }
-    
     }
-    .cover{
-    width: 100%;
-    position: absolute;
-    top: 44px;
-    bottom: 49px;
-    left: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 1;
 }
- }
+.cover{
+width: 100%;
+position: absolute;
+top: 44px;
+bottom: 49px;
+left: 0;
+background: rgba(0,0,0,0.5);
+z-index: 2;
+}
 </style>

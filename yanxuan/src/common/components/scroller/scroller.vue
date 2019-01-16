@@ -37,8 +37,6 @@ export default {
                     position:'absolute',
                     top:this.top+'px',
                     bottom:this.bottom+'px',
-                    width:'100%',
-                    left:0
                 }
             }else{
                 return {
@@ -49,8 +47,8 @@ export default {
         }
     },
     methods:{
-        refresh(){
-            this.scroll.refresh()
+        scrollTo(y,time){
+            this.scroll.scrollTo(0,y,time)
         }
     },
     mounted(){
@@ -59,6 +57,10 @@ export default {
             scrollY:this.scrollY,
              probeType: 3,
              click:true
+        })
+        // this.scroll=new BScroll(this.$refs.scroll);
+        this.scroll.on('beforeScrollStart',()=>{
+            this.scroll.refresh();
         })
     }
 

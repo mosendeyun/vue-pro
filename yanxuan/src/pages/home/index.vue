@@ -8,26 +8,37 @@
         </div>
         <span class="login">登录</span>
     </header>
-    <homeNav/>
-    <scroller class="scroll" :top="74" :bottom="49">
-        <ul>
-            <li class="items" v-for="item in num" :key="item">
-                {{item}}
-            </li>
-        </ul>
-    </scroller>
+    <homeNav v-model=selectIndex  ref="nav"/>
+
+    <homeContent v-show="selectIndex===0"/>
+
+    <homeCateContent v-show="selectIndex!==0" :data="selectItem"/>
 </div>
 </template>
 
 <script>
 import homeNav from '../../components/homeCon/homeNav'
+import homeContent from '../../components/homeCon/homeContent'
+import homeCateContent from '../../components/homeCon/homeCateContent'
 export default {
     components:{
-        homeNav
+        homeNav,
+        homeContent,
+        homeCateContent
     },
     data(){
         return{
-            num:20
+            selectIndex:0
+        }
+    },
+    computed:{
+        //传值给子组件
+        selectItem(){
+            if(this.selectIndex>0){
+                return this.$refs.nav.list[this.selectIndex]
+            }else{
+                return {}
+            }
         }
     }
 }
