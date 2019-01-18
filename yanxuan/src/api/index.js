@@ -47,7 +47,17 @@ const CATEGOEY_LIST_GROUP_URL = '/api/category/listmap/group';
 method: GET
 params: id  
 */
-const CATEGOEY_LIST_GROUP_ITEM_URL = '/api/category/listmap/group/item';
+// const CATEGOEY_LIST_GROUP_ITEM_URL = '/api/category/listmap/group/item';
+
+const HOME_CATE_ITEM_LIST_URL = '/api/home/catelist/itemlist';
+
+
+//识物数据
+const TOPIC_FIND_TABS_URL = '/api/topic/find/getTabs';
+// 识物tab列表数据
+const TOPIC_FIND_TAB_DATA_URL = '/api/topic/find/getTabData';
+
+
 
 export default {
     CATELIST_URL,
@@ -56,7 +66,8 @@ export default {
     CATEDETAIL_URL,
     CATEGORY_LIST_URL,
     CATEGOEY_LIST_GROUP_URL,
-    CATEGOEY_LIST_GROUP_ITEM_URL
-
+    HOME_CATE_ITEM_LIST_URL,
+    TOPIC_FIND_TABS_URL,
+    TOPIC_FIND_TAB_DATA_URL
 
 }

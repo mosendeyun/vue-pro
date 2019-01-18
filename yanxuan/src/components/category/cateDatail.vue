@@ -2,13 +2,16 @@
     <scroller ref="content" :top="44" :bottom="49"
         :forword="handleContentforword" class="border_right"
         :next="handleContentNext">
-        <img class="banner" :src="bannerUrl">
-        <ul class="content_list clear-fix" >
-            <li class="content_item"  v-for="item in detailData" :key="item.id">
-                    <img :src="item.wapBannerUrl"/>
-                    <p>{{item.name}}</p>
-            </li>
-        </ul>
+        <div>
+            <img class="banner" :src="bannerUrl" >
+            <ul class="content_list clear-fix"  v-for="(item,index) in detailData" :key="index">
+                <h4 v-if="item.id===0 ? false:true">{{item.name}}</h4>
+                <li class="content_item"  v-for="(items,index1) in item.categoryList" :key="index1">
+                    <img :src="items.wapBannerUrl"/>
+                    <p>{{items.name}}</p>
+                </li>
+            </ul>
+        </div>
     </scroller>
 </template>
 
@@ -37,8 +40,7 @@ export default {
             if(this.selectIndex < this.navData.length-1){
                 this.selectedTab(this.selectIndex + 1);
             }
-        }
-    
+        }   
      },
     watch:{
         "indexId":{
@@ -47,8 +49,9 @@ export default {
                     Indicator.open();
                     getCategoryListGroup(newVal)
                     .then(data=>{
-                        this.bannerUrl=data.bannerUrl,
-                    this.detailData=data.currentCategory
+                    this.bannerUrl=data.bannerUrl,
+                    this.detailData=data.categoryGroupList
+                    console.log(data.categoryGroupList)
                         this.$nextTick(()=>{
                             Indicator.close();
                             //滚动试图滚到最顶部
@@ -72,6 +75,9 @@ export default {
     .banner{width:100%;}  
     .content_list{
         width:100%;
+        h4{
+            font-size: 14px;padding: 10px 0;border-bottom: 1px solid #ccc;
+        }
         .content_item{
             width:33%;float:left;padding:5px 5px 12px 5px;;
             height: 120px;

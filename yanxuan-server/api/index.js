@@ -47,6 +47,8 @@ method: GET
 params: id  
 */
 const CATEGOEY_LIST_GROUP_ITEM_URL = '/api/category/listmap/group/item';
+// 首页分类列表
+const HOME_CATE_ITEM_LIST_URL = '/api/home/catelist/itemlist';
 
 module.exports={
     CATELIST_URL,
@@ -55,8 +57,12 @@ module.exports={
     CATEDETAIL_URL,
     CATEGORY_LIST_URL,
     CATEGOEY_LIST_GROUP_URL,
-    CATEGOEY_LIST_GROUP_ITEM_URL
+    CATEGOEY_LIST_GROUP_ITEM_URL,
+    HOME_CATE_ITEM_LIST_URL
     
-
-
 }
+module.exports.TOPIC_FIND_TABS_URL = '/api/topic/find/getTabs';
+
+// 识物tab列表数据
+// 参数：tabId (默认值为9  推荐9，达人4，上新5，home6)   size   page
+module.exports.TOPIC_FIND_TAB_DATA_URL = '/api/topic/find/getTabData';

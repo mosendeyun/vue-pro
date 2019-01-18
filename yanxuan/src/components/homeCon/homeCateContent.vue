@@ -12,7 +12,7 @@
                         <span>{{item.simpleDesc}}</span>
                    </div>
                    <h5>{{item.name}}</h5>
-                   <p>¥{{item.price}}</p>
+                   <h6>¥{{item.price}}</h6>
                    <p class="price" v-for="items in item.tagList" :key="items.id">
                        {{items.name}}
                     </p>
@@ -70,19 +70,21 @@ export default {
         width:100%;
     }
     .title{
-        overflow: hidden;background:#fff;margin-top:10px;
+        overflow: hidden;background:#fff;margin-top:10px;padding: 10px 7px 5px;
         h3,.front{width:100%;font-size: 18px;line-height: 18px;
         color:#000;text-align: center;}
-        .front{color:#333;font-size: 12px;}
+        .front{color:#ccc;font-size: 12px;}
         .title_con{         
             .title_list{
-                width:50%;float:left;padding:20px 5px;position: relative;
+                width:50%;float:left;padding:10px 5px;position: relative;
+                height:282px;
                 img{width:100%;display: block;}
                 .con_img{
                     width:100%;
-                    span{width:100%;font-size: 12px;color: #9F8A60;
+                    span{width:100%;font-size: 12px;color: #9F8A60; background: #F1ECE2;
                     text-align: center;text-overflow: ellipsis; display: -webkit-box;
-                    -webkit-line-clamp:1;  overflow: hidden; -webkit-box-orient: vertical;}
+                    -webkit-line-clamp:1;  overflow: hidden; -webkit-box-orient: vertical;
+                    line-height: 20px;}
                 }
                 h5{font-size: 14px;color:#000;line-height: 18px;margin-top:10px;
                    overflow: hidden;
@@ -91,10 +93,11 @@ export default {
                     -webkit-line-clamp:1;
                     -webkit-box-orient: vertical;
                 }
+                h6{line-height: 24px;color: #b4282d;font-size: 14px;}
                 .price{
                    border:1px solid red;font-size: 12px;position: absolute;
-                   bottom: 0;left:5px;padding: 1px;
-                    text-align: center;border-radius: 3px;
+                   bottom:12px;left:5px;padding: 1px;color: #b4282d;
+                    text-align: center;border-radius: 3px;line-height: 16px;
                 }
             }
         }

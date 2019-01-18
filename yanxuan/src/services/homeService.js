@@ -80,17 +80,49 @@ export function getHomeTopData(){
     //     })
     // }
 
-    export function getHomeCateDetail(){
+    // export function getHomeCateDetail(id){
+    //     return new Promise((resolve,reject)=>{
+    //         var iframe=document.createElement('iframe');
+    //         iframe.src=API.CATEDETAIL_URL+'?id='+ id;
+    //         iframe.style.display='none'
+    //         iframe.onload=function(){
+    //             console.log(iframe.contentDocument.querySelector('script'))
+    //             let scriptText=iframe.contentDocument.querySelectorAll('script')[10].innerText;
+    //             let index=scriptText.indexOf('=');
+    //             let jsonData=scriptText.substring(index+1,scriptText.length-2);
+    //             let data=JSON.parse(jsonData);
+    //             resolve({
+    //                 bannerUrl:data.currentCategory.bannerUrl,
+    //                 categoryList:data.categoryItemList.map(item=>{
+    //                     return {
+    //                         id:  item.category.id,
+    //                         name:item.category.name,
+    //                         frontDesc:item.category.frontDesc,
+    //                         frontName:item.category.frontName,
+    //                         itemList:item.itemList.map(listItem=>{
+    //                             return {
+    //                                 id:listItem.id,
+    //                                 name:listItem.name,
+    //                                 simpleDesc:listItem.simpleDesc,
+    //                                 promotionDesc:listItem.promotionDesc,
+    //                                 pieceUnitDesc:listItem.pieceUnitDesc,
+    //                                 price:listItem.retailPrice,
+    //                                 tagList:listItem.itemTagList,
+    //                                 listPicUrl:listItem.listPicUrl,
+                                    
+    //                             }
+    //                         })
+    //                     }
+    //                 })   
+    //             })
+    //         } 
+    //         document.body.appendChild(iframe);
+    //     })
+    // }
+    export function getHomeCateDetail(id){
         return new Promise((resolve,reject)=>{
-            var iframe=document.createElement('iframe');
-            iframe.src=API.CATEDETAIL_URL+'?id=' + id;
-            iframe.style.display='none'
-            iframe.onload=function(){
-                console.log(iframe.contentDocument.querySelector('script'))
-                let scriptText=iframe.contentDocument.querySelectorAll('script')[10].innerText;
-                let index=scriptText.indexOf('=');
-                let jsonData=scriptText.substring(index+1,scriptText.length-2);
-                let data=JSON.parse(jsonData);
+            FetchGet(API.HOME_CATE_ITEM_LIST_URL,{id})
+            .then(data=>{
                 resolve({
                     bannerUrl:data.currentCategory.bannerUrl,
                     categoryList:data.categoryItemList.map(item=>{
@@ -108,15 +140,13 @@ export function getHomeTopData(){
                                     pieceUnitDesc:listItem.pieceUnitDesc,
                                     price:listItem.retailPrice,
                                     tagList:listItem.itemTagList,
-                                    listPicUrl:listItem.listPicUrl,
-                                    
+                                    listPicUrl:listItem.listPicUrl,                                    
                                 }
                             })
                         }
                     })   
                 })
-            } 
-            document.body.appendChild(iframe);
+            })
         })
     }
 
@@ -130,6 +160,7 @@ export function getHomeTopData(){
                         return {
                             id:item.id,
                             name:item.name,
+                            wapBannerUrl:item.wapBannerUrl
                         }
                     })
                 })
@@ -144,15 +175,56 @@ export function getHomeTopData(){
                 console.log(data)
                 resolve({
                     bannerUrl:data.currentCategory.bannerUrl,
-                    id:data.currentCategory.id,
-                    currentCategory:data.currentCategory.subCateList.map(item=>{
+                    // id:data.currentCategory.id,
+                    categoryGroupList:data.categoryGroupList.map(item=>{
                         return {
-                            wapBannerUrl:item.wapBannerUrl,
-                            frontName:item.frontName,
                             name:item.name,
-                            id:item.id                           
+                            id:item.id,
+                            categoryList:item.categoryList.map(items=>{
+                                return{
+                                    id:items.id,
+                                    name:items.name,
+                                    frontName:items.name,
+                                    wapBannerUrl:items.wapBannerUrl,
+                                    frontDesc:items.frontDesc,
+                                }
+                            })                           
                         }
                     })
+                })
+            })
+        })
+    }
+
+
+    //请求识物
+    export function getTopicNavList(){
+        return new Promise((resolve,reject)=>{
+            FetchGet(API.TOPIC_FIND_TABS_URL)
+            .then(data=>{
+                // console.log(data)
+                resolve({
+                    tabList:data.map(item=>{
+                        return{
+                            id:item.tabId,
+                            tabName:item.tabName,
+                            linkUrl:item.linkUrl
+                        }                          
+                    })
+                })
+            })
+        })
+    }
+    
+
+// 识物tab列表数据
+    export function getTopicTabList(){
+        return new Promise((resolve,reject)=>{
+            FetchGet(API.TOPIC_FIND_TAB_DATA_URL)
+            .then(data=>{
+                console.log(data)
+                resolve({
+                   
                 })
             })
         })
