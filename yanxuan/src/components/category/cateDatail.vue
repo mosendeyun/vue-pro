@@ -21,7 +21,7 @@ import { Indicator } from 'mint-ui';
 import Vue from 'vue';
 import { Lazyload } from 'vant';
 export default {
-    props:['indexId'],
+    props:['indexId','selectIndex'],
     data(){
         return {
             bannerUrl:'',
@@ -37,7 +37,7 @@ export default {
         },
         handleContentNext(){
             // console.log('触发跳转下一个滚动视图');
-            if(this.selectIndex < this.navData.length-1){
+            if(this.selectIndex < 13){
                 this.selectedTab(this.selectIndex + 1);
             }
         }   

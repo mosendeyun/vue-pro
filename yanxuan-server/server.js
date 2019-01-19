@@ -224,6 +224,55 @@ app.get(api.TOPIC_FIND_TAB_DATA_URL, (req, res)=>{
     }
 })
 
+// 识物tab晒单banner数据
+app.get(api.TOPIC_FIND_SHOW_BANNER_URL, (req, res)=>{
+    axios.get('https://m.you.163.com/topic/v1/look/getCollection.json?id=39')
+    .then(response=>{
+        res.json({
+            message: 'ok',
+            status: 0,
+            data: response.data.data
+        })
+    })
+})
+
+// 识物tab晒单列表数据
+app.get(api.TOPIC_FIND_SHOW_DATA_URL, (req, res)=>{
+    let {page, size, type} = url.parse(req.url, true).query;
+    console.log(page, size, type);
+    if( !page || !size || !type){
+        res.json({
+            message: '缺少参数',
+            status: 1,
+            data: null
+        })
+        return;
+    }
+    if( type != 1 && type != 2 && type != 3){
+        res.json({
+            message: 'type参数不正确',
+            status: 2,
+            data: null
+        })
+        return;
+    }
+    
+    axios.get('https://m.you.163.com/topic/v1/look/getList.json', {
+        params: {
+            page,
+            size,
+            type
+        }
+    })
+    .then(response=>{
+        res.json({
+            message: 'ok',
+            status: 0,
+            data: response.data.data
+        })
+    })
+})
+
 app.listen(8888,'localhost',(error)=>{
     if(error){
         console.log('启动失败');

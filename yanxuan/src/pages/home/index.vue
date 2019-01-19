@@ -35,6 +35,7 @@ export default {
         //传值给子组件
         selectItem(){
             if(this.selectIndex>0){
+                console.log(this.$refs.nav)
                 return this.$refs.nav.list[this.selectIndex]
             }else{
                 return {}

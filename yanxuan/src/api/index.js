@@ -57,6 +57,12 @@ const TOPIC_FIND_TABS_URL = '/api/topic/find/getTabs';
 // 识物tab列表数据
 const TOPIC_FIND_TAB_DATA_URL = '/api/topic/find/getTabData';
 
+// 识物tab晒单banner数据
+const TOPIC_FIND_SHOW_BANNER_URL = '/api/topic/find/getTabShowBanner';
+// 识物tab晒单列表数据 
+// 参数：page  size  type:1最新，2本月最热，3晒单合辑
+const TOPIC_FIND_SHOW_DATA_URL = '/api/topic/find/getTabShowData';
+
 
 
 export default {
@@ -68,6 +74,9 @@ export default {
     CATEGOEY_LIST_GROUP_URL,
     HOME_CATE_ITEM_LIST_URL,
     TOPIC_FIND_TABS_URL,
-    TOPIC_FIND_TAB_DATA_URL
+    TOPIC_FIND_TAB_DATA_URL,
+    TOPIC_FIND_SHOW_BANNER_URL,
+    TOPIC_FIND_SHOW_DATA_URL
+
 
 }

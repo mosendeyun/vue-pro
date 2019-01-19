@@ -196,36 +196,3 @@ export function getHomeTopData(){
         })
     }
 
-
-    //请求识物
-    export function getTopicNavList(){
-        return new Promise((resolve,reject)=>{
-            FetchGet(API.TOPIC_FIND_TABS_URL)
-            .then(data=>{
-                // console.log(data)
-                resolve({
-                    tabList:data.map(item=>{
-                        return{
-                            id:item.tabId,
-                            tabName:item.tabName,
-                            linkUrl:item.linkUrl
-                        }                          
-                    })
-                })
-            })
-        })
-    }
-    
-
-// 识物tab列表数据
-    export function getTopicTabList(){
-        return new Promise((resolve,reject)=>{
-            FetchGet(API.TOPIC_FIND_TAB_DATA_URL)
-            .then(data=>{
-                console.log(data)
-                resolve({
-                   
-                })
-            })
-        })
-    }

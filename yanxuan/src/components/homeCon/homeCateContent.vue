@@ -28,10 +28,10 @@
 import {getHomeCateDetail} from '../../services/homeService'
 import { Indicator } from 'mint-ui';
 import Vue from 'vue';
-import { Lazyload } from 'vant';
+// import { Lazyload } from 'vant';
 
-// options 为可选参数，无则不传
-Vue.use(Lazyload, {lazyComponent:true});
+// // options 为可选参数，无则不传
+// Vue.use(Lazyload, {lazyComponent:true});
 export default {
     props:['data'],
     data(){

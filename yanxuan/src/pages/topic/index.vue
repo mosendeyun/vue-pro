@@ -11,7 +11,7 @@
     </header>
     <nav class="nav border-bottom">
         <li v-for="(tab, index) in tabList" :key="tab.id"
-         @click="tabAction(index, tab)"  :class="{active:selectIndex === index}"  >                    
+         @click="tabAction(index, tab.id)"  :class="{active:selectIndex === index}"  >                    
                {{tab.tabName}}
         </li>
     </nav>
@@ -21,24 +21,38 @@
 </template>
 
 <script>
-import {getTopicNavList} from '../../services/homeService.js'
+import {getTopicNavList} from '../../services/topicService.js'
 export default {
     data(){
         return {
             tabList:[],
-            selectIndex:0
+            selectIndex:0,
+            startId:9
         }
     },
     created(){
         getTopicNavList().then(data=>{
-            console.log(data.tabList)
             this.tabList=data.tabList
         })
     },
     methods:{
-        tabAction(index){
+        tabAction(index,tab){
             this.selectIndex=index
+            this.startId=tab
+            // console.log(tab.id)
+            if(tab===7){
+                this.$router.push('/goods/show')
+            }else{
+                this.$router.push('/goods/goods/'+tab)
+            }
         }
+    },
+     beforeRouteEnter(from, to, next){
+        next((com)=>{
+            //重定向
+            console.log(com.startId)
+            com.$router.replace('/goods/goods/'+com.startId);
+        });
     }
 }
 </script>
